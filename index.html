@@ -276,7 +276,7 @@
     </style>
 
 <style>
- .container {
+.container {
    border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     
@@ -317,7 +317,6 @@
     cursor: pointer;
     transition: opacity 0.5s ease; /* Add transition effect */
   }
-
 
 .small-font {
   font-size: 20px !important;
@@ -385,6 +384,108 @@
 </style>
 
 
+<style>
+
+.container {
+    width: 330px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+h2 {
+    margin-top: 0;
+  }
+
+form {
+    margin-bottom: 20px;
+  }
+
+input[type="file"], input[type="name"], select, textarea {
+    display: block;
+    margin-bottom: 10px;
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+button[type="Submit_Review"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="Submit_Review"]:hover {
+    background-color: #0056b3;
+}
+
+
+.reviews {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+
+.review-container {
+    display: flex;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+.profile-image-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+
+.profile-image-box img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+.review-content {
+    flex-grow: 1;
+  }
+
+.review-text {
+    margin-top: 0;
+  }
+
+.user-name {
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+.rating {
+    margin-top: 5px;
+  }
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+.delete-button:hover {
+    background-color: #bd2130;
+  }
+
+
+</style>
 
 
 
@@ -481,12 +582,13 @@
                     </span>
             </label>
             <!-- Product 3 -->
+           
             <label class="product-option">
-                <input type="radio" name="product" value="৭.৫ গ্রাম ফুল কোর্স, ১২০০ টাকা">
+                <input type="radio" name="product" value="৭.৫ গ্রাম ফুল কোর্স">
                 <span class="product-info">
-                        <span class="product-name">ফুল কোর্স</span><br>
-                        <span class="product-description">৭.৫ গ্রাম ফুল কোর্স </span><br>
-                        <span class="product-price">৳1200</span>
+                        <span class="product-name"> ফুল কোর্স</span><br>
+                        <span class="product-description">ফুল কোর্সঃ ৭.৫ গ্রাম.</span><br>
+                        <span class="product-price">৳১২০০</span>
                     </span>
             </label>
         </div>
@@ -590,7 +692,29 @@
 </body>
   
   
+<body>
+  <div class="container">
+    <h2>Add a Review</h2>
+    <form id="add-review-form">
+      <input type="file" id="image-upload" accept="image/*" required>
+      <input type="name" id="username" placeholder="Your Username" required>
+      <select id="rating" required>
+        <option value="" disabled selected>Select Rating</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+      <button type="Submit_Review">Submit Your Review</button>
+    </form>
+  </div>
 
+  <div class="container reviews">
+    <h2>Reviews</h2>
+    <div id="reviews"></div>
+  </div>
 
 
 
@@ -721,7 +845,105 @@ function toggleVideoPlay() {
 
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("add-review-form");
+  const reviewsContainer = document.getElementById("reviews");
 
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const image = document.getElementById("image-upload").files[0];
+    const username = document.getElementById("username").value;
+    const rating = document.getElementById("rating").value;
+    const reviewText = document.getElementById("review-text").value;
+
+    // Read image file as data URL
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const imageDataUrl = event.target.result;
+
+      // Save review data to local storage
+      const review = {
+        id: Date.now(), // Unique ID for each review
+        image: imageDataUrl,
+        username: username,
+        rating: rating,
+        reviewText: reviewText
+      };
+
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews.unshift(review); // Add new review at the beginning
+
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+
+      // Display reviews
+      displayReviews();
+    };
+    reader.readAsDataURL(image);
+  });
+
+  function displayReviews() {
+    reviewsContainer.innerHTML = "";
+
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+
+    reviews.forEach(function(review) {
+      const reviewElement = document.createElement("div");
+      reviewElement.classList.add("review-container");
+
+      // Create HTML for review
+      reviewElement.innerHTML = `
+        <div class="profile-image-box">
+          <img src="${review.image}" alt="Profile Image">
+        </div>
+        <div class="review-content">
+          <p class="review-text">${review.reviewText}</p>
+          <p class="user-name">${review.username}</p>
+          <div class="rating">
+            ${getStars(review.rating)} (${review.rating}/5 stars)
+          </div>
+          <button class="delete-button" data-id="${review.id}">Delete</button>
+        </div>
+      `;
+
+      reviewsContainer.appendChild(reviewElement);
+    });
+
+    // Attach event listeners to delete buttons
+    attachDeleteButtonListeners();
+  }
+
+  function attachDeleteButtonListeners() {
+    const deleteButtons = document.querySelectorAll(".delete-button");
+    deleteButtons.forEach(button => {
+      button.addEventListener("click", function(event) {
+        const reviewId = event.target.dataset.id;
+        deleteReview(reviewId);
+      });
+    });
+  }
+
+  // Function to delete a review
+  function deleteReview(id) {
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    reviews = reviews.filter(review => review.id != id);
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+    displayReviews();
+  }
+
+  // Display existing reviews on page load
+  displayReviews();
+
+  // Function to get star icons based on rating
+  function getStars(rating) {
+    const star = '⭐️';
+    return star.repeat(rating);
+  }
+});
+
+</script>
 
 
 </body>

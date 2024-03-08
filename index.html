@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HEALTHY MART</title>
+    <title>Product Selection with Full Dive</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
     <style>
@@ -386,107 +386,7 @@
 
 
 
-<style>
 
-.form_revew {
-    max-width: 300px;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-
-h2 {
-    margin-top: 0;
-  }
-
-form {
-    margin-bottom: 20px;
-  }
-
-input[type="file"], input[type="name"], select, textarea {
-    display: block;
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-
-button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-button {
-    background-color: #0056b3;
-  }
-
-.reviews {
-    border-top: 1px solid #ccc;
-    padding-top: 20px;
-  }
-
-.review-container {
-    display: flex;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-.profile-image-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 20px;
-  }
-
-.profile-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-.review-content {
-    flex-grow: 1;
-  }
-
-.review-text {
-    margin-top: 0;
-  }
-
-.user-name {
-    font-weight: bold;
-    margin-top: 5px;
-  }
-
-.rating {
-    margin-top: 5px;
-  }
-
-.delete-button {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-.delete-button:hover {
-    background-color: #bd2130;
-  }
-
-
-</style>
 
 <head>
     <!-- Other meta tags and styles -->
@@ -690,29 +590,9 @@ button {
 </body>
   
   
-<body>
-  <div class="form_revew">
-    <h2>Add a Review</h2>
-    <form id="add-review-form">
-      <input type="file" id="image-upload" accept="image/*" required>
-      <input type="name" id="username" placeholder="Your Username" required>
-      <select id="rating" required>
-        <option value="" disabled selected>Select Rating</option>
-        <option value="1">⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="4">⭐⭐⭐⭐</option>
-        <option value="5">⭐⭐⭐⭐⭐</option>
-      </select>
-      <textarea id="review-text" placeholder="Write your review here..." required></textarea>
-      <button type="post">Submit Review</button>
-    </form>
-  </div>
 
-  <div class="container reviews">
-    <h2>Reviews</h2>
-    <div id="reviews"></div>
-  </div>
+
+
 
   <script src="script.js" defer></script>
 </body>
@@ -739,61 +619,71 @@ button {
 
 <script>
   // Function to display a modal with a message for a certain duration
-  function showAlertModal(message) {
-      var modal = document.createElement('div');
-      modal.classList.add('alert-modal');
-      modal.innerHTML = '<p>' + message + '</p>';
-      document.body.appendChild(modal);
+function showAlertModal(message) {
+    var modal = document.createElement('div');
+    modal.classList.add('alert-modal');
+    modal.innerHTML = '<p>' + message + '</p>';
+    document.body.appendChild(modal);
 
-      // Close the modal after some time (e.g., 3 seconds)
-      setTimeout(function() {
-          modal.remove();
-      }, 3000);
-  }
+    // Close the modal after some time (e.g., 3 seconds)
+    setTimeout(function () {
+        modal.remove();
+    }, 3000);
+}
 
-  // Function to highlight the product selection area if no product is selected
-  function highlightSelectArea() {
-      var productSelection = document.querySelector('.product-selection');
-      // Scroll to the product selection section
-      productSelection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+// Function to highlight the product selection area if no product is selected
+function highlightSelectArea() {
+    var productSelection = document.querySelector('.product-selection');
+    // Scroll to the product selection section
+    productSelection.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-      setTimeout(function() {
-          var count = 0;
-          var interval = setInterval(function() {
-              productSelection.style.border = count % 2 === 0 ? '2px solid red' : 'none';
-              count++;
-              if (count === 6) {
-                  clearInterval(interval);
-              }
-          }, 500);
-      }, 500); // Delay the red border effect by 500 milliseconds to allow time for scrolling
-  }
+    setTimeout(function () {
+        var count = 0;
+        var interval = setInterval(function () {
+            productSelection.style.border = count % 2 === 0 ? '2px solid red' : 'none';
+            count++;
+            if (count === 6) {
+                clearInterval(interval);
+            }
+        }, 500);
+    }, 500); // Delay the red border effect by 500 milliseconds to allow time for scrolling
+}
 
-  // Function to capture product selection and submit the form
-  function captureProductAndSubmit(event) {
-      event.preventDefault(); // Prevent the default form submission
-
-      var selectedProduct = document.querySelector('input[name="product"]:checked');
-      if (!selectedProduct) {
-          showAlertModal("Please select a product."); // Display message if no product is selected
-          highlightSelectArea();
-          return; // Stop further execution if no product is selected
-      }
-
-      // Show loading animation
-      document.getElementById('loadingAnimation').style.display = 'block';
-      document.getElementById('loadingText').innerText = 'Order confirming...';
-
-      // Submit the form after 3 seconds
-      setTimeout(function() {
-          // Redirect to the order confirmation page
-          window.location.href = 'orderconfirmed.html';
-      }, 3000);
-  }
-
-  // Event listener for form submission
-  document.getElementById("orderForm").addEventListener("submit", captureProductAndSubmit);
 </script>
+
+<script>
+    // Function to capture product selection and submit the form
+    function captureProductAndSubmit(event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        var selectedProduct = document.querySelector('input[name="product"]:checked');
+        if (!selectedProduct) {
+            showAlertModal("Please select a product."); // Display message if no product is selected
+            highlightSelectArea();
+            return; // Stop further execution if no product is selected
+        }
+
+        // Show loading animation
+        document.getElementById('loadingAnimation').style.display = 'block';
+
+        // Submit the form
+        document.getElementById("selectedProduct").value = selectedProduct.value;
+        document.getElementById("orderForm").submit();
+
+        // Hide the loading animation after 3 seconds (or any suitable time)
+        setTimeout(function() {
+            document.getElementById('loadingAnimation').style.display = 'none';
+            
+            // Redirect to the custom page after successful form submission
+            window.location.href = "orderconfirmed.html";
+        }, 3000);
+    }
+
+    // Event listener for form submission
+    document.getElementById("orderForm").addEventListener("submit", captureProductAndSubmit);
+</script>
+
+
 <script>
 function changeImage(thumbnail) {
   var mainImage = document.getElementById('mainImage');
@@ -833,104 +723,6 @@ function toggleVideoPlay() {
 
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  const form = document.getElementById("add-review-form");
-  const reviewsContainer = document.getElementById("reviews");
 
-  form.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    // Get form values
-    const image = document.getElementById("image-upload").files[0];
-    const username = document.getElementById("username").value;
-    const rating = document.getElementById("rating").value;
-    const reviewText = document.getElementById("review-text").value;
-
-    // Read image file as data URL
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const imageDataUrl = event.target.result;
-
-      // Save review data to local storage
-      const review = {
-        id: Date.now(), // Unique ID for each review
-        image: imageDataUrl,
-        username: username,
-        rating: rating,
-        reviewText: reviewText
-      };
-
-      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-      reviews.unshift(review); // Add new review at the beginning
-
-      localStorage.setItem("reviews", JSON.stringify(reviews));
-
-      // Display reviews
-      displayReviews();
-    };
-    reader.readAsDataURL(image);
-  });
-
-  function displayReviews() {
-    reviewsContainer.innerHTML = "";
-
-    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-
-    reviews.forEach(function(review) {
-      const reviewElement = document.createElement("div");
-      reviewElement.classList.add("review-container");
-
-      // Create HTML for review
-      reviewElement.innerHTML = `
-        <div class="profile-image-box">
-          <img src="${review.image}" alt="Profile Image">
-        </div>
-        <div class="review-content">
-          <p class="review-text">${review.reviewText}</p>
-          <p class="user-name">${review.username}</p>
-          <div class="rating">
-            ${getStars(review.rating)} (${review.rating}/5 stars)
-          </div>
-          <button class="delete-button" data-id="${review.id}">Delete</button>
-        </div>
-      `;
-
-      reviewsContainer.appendChild(reviewElement);
-    });
-
-    // Attach event listeners to delete buttons
-    attachDeleteButtonListeners();
-  }
-
-  function attachDeleteButtonListeners() {
-    const deleteButtons = document.querySelectorAll(".delete-button");
-    deleteButtons.forEach(button => {
-      button.addEventListener("click", function(event) {
-        const reviewId = event.target.dataset.id;
-        deleteReview(reviewId);
-      });
-    });
-  }
-
-  // Function to delete a review
-  function deleteReview(id) {
-    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
-    reviews = reviews.filter(review => review.id != id);
-    localStorage.setItem("reviews", JSON.stringify(reviews));
-    displayReviews();
-  }
-
-  // Display existing reviews on page load
-  displayReviews();
-
-  // Function to get star icons based on rating
-  function getStars(rating) {
-    const star = '⭐️';
-    return star.repeat(rating);
-  }
-});
-
-</script>
 </body>
 </html>

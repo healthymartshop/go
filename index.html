@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Selection with Full Dive</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+  
+        .header {
+            height: 100px;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header img {     
+         width:130px; 
+         height: 100px;
+          
+        }
+  
+        /* CSS for video container */
+.video-container {
+  
+  overflow: hidden;
+  
+  border:2px solid black;
+    position: relative;
+    width: 95%; /* Adjust width as needed */
+    height: 250px; /* Adjust height as needed */
+    margin: 0 auto; /* Center horizontally */
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 200px;
+    /* Remove background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none; /* Remove shadow */
+    border-radius: 10px; /* Keep border radius at 10px */
+}
+
+
+
+/* Add this class to the play button to give it a visual appearance */
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    background-image: url('play_button_image'); /* Replace 'play_button_image' with your play button image */
+    background-size: cover;
+    cursor: pointer;
+}
+
+  
+        .order-form {
+            width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            border:2px solid black;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-selection {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .product-option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border: 2px solid #660099;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-info {
+            margin-right: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product-description {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: green;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 0 auto; /* Center horizontally */
+            display: block; /* Make them block elements */
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 2px solid ;
+        }
+
+        /* Submit button */
+        button[type="submit"] {
+          font-size: 15px;
+            width: 100%; /* Set width to 100px */
+            display: block; /* Make the button a block element */
+            margin: 0 auto; /* Center horizontally */
+            padding: 10px 0; /* Keep top and bottom padding, remove left and right padding */
+            background-color: limegreen;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .alert-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 100px;
+            background-color: red;
+            border-radius: 10px;
+           
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+  
+  
+  .styled-div {
+            width: 300px;
+            height: 250px;
+          padding-bottom:10px;
+            border: 1px solid black;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .styled-div h1, .styled-div h2, .styled-div p {
+            text-align: center;
+        }
+        
+        .styled-div h2 {
+          padding-top:15px;
+            padding-right: 10px;
+            font-size: 23px;
+            color: green;
+        }
+
+  
+  .pricing-header {
+    text-align: center;
+    margin-top: 20px;
+}
+.pricing-header h2 {
+    color: #333;
+    font-size: 35px;
+}
+  
+      #message-us {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0084FF;
+            color: #fff;
+            padding: px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+        }
+
+        #message-us img {
+            width: 50px; /* Adjust the size of the logo */
+            height: 50px;
+            }
+  
+  
+   #contact {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #contact h2 {
+            color: #8cc084;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+        }
+  
+  
+  
+  footer {
+            background-color:Teal;
+            color: #fff;
+            text-align: center;
+            display: flex;
+    justify-content: center;
+    align-items: center;
+            padding: 10px;
+            position: flex;
+            height:40px;
+            bottom: 0;
+            width:;
+        }
+  
+  #loadingAnimation {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    text-align: center;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loadingText {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #333;
+}
+
+  
+  
+    </style>
+
+<style>
+ .container {
+   border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    margin: 10px auto; /* Center horizontally and add top margin */
+    width: 370px;
+    height: 370px;
+    border: 1px solid black;
+    overflow: hidden;
+    position: relative;
+}
+
+.image {
+  border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    display: block;
+    margin: 10px auto; /* Center the image horizontally and vertically */
+    width: 320px;
+    height: 250px;
+    border: 1px solid black;
+    transition: opacity 0.5s ease;
+}
+
+  .additional-images {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px; /* Adjust spacing around the images */
+    box-sizing: border-box;
+  }
+  .additional-images img {
+    border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    
+    width: 80px; /* Adjust width as needed */
+    height: 80px; /* Adjust height as needed */
+    border: 1px solid black; /* Add border to the additional images */
+    cursor: pointer;
+    transition: opacity 0.5s ease; /* Add transition effect */
+  }
+
+
+.small-font {
+  font-size: 20px !important;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.orange-text {
+    color: orange;
+    text-align: center;
+    font-size: 17px;
+    padding: 0 10px;
+}
+
+
+
+</style>
+
+
+<style>
+  .review-container {
+    display: flex;
+    border: 1px solid #ccc;
+    background-color: #99CCFF;
+    border-radius: 8px;
+    padding: 20px;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 5px; /* Reduced margin between review containers */
+  }
+
+  .profile-image-box {
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+
+  .profile-image-box img {
+    width: 70px;
+    height: 70px;
+    
+  }
+
+  .review-content {
+    flex-grow: 1;
+    max-width: calc(100% - 120px); /* Adjust maximum width to leave space for image */
+  }
+
+  .user-name {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  .review-text {
+    margin-top: 5px; /* Adjust margin between review text and user name */
+  }
+
+  .rating {
+    margin-top: 10px;
+  }
+
+
+
+</style>
+
+
+
+<style>
+
+.form_revew {
+    max-width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+h2 {
+    margin-top: 0;
+  }
+
+form {
+    margin-bottom: 20px;
+  }
+
+input[type="file"], input[type="name"], select, textarea {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+button {
+    background-color: #0056b3;
+  }
+
+.reviews {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+  }
+
+.review-container {
+    display: flex;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+.profile-image-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+
+.profile-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+.review-content {
+    flex-grow: 1;
+  }
+
+.review-text {
+    margin-top: 0;
+  }
+
+.user-name {
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+.rating {
+    margin-top: 5px;
+  }
+
+.delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+.delete-button:hover {
+    background-color: #bd2130;
+  }
+
+
+</style>
+
+
+
+</head>
+
+<body>
+<div class="header">
+    <img src="https://github.com/fbook0/login/raw/main/Sat_9_03_2024_02_17_05.png" alt="Logo">
+</div>
+
+<div class="headline">
+    <h1 style="text-align: center; font-size: 24px; padding: 0 10px;">অতিরিক্ত ওজন কমানোর প্রাকৃতিক উপায়</h1>
+</div>
+
+
+<!-- Video container with poster attribute -->
+<div class="video-container">
+    <video id="videoPlayer" src="https://github.com/fbook0/login/raw/main/VID-20240308-WA0001.mp4" poster="https://raw.githubusercontent.com/healthycare0011/photo/main/Sliming Tea.jpg" autoplay controls></video>
+    <div class="overlay"></div>
+    <div class="play-button" onclick="toggleVideoPlay()"></div>
+</div>
+<h4 class="orange-text"> স্লিমিং টি খেলে ডা’য়ে’ট করা ছাড়াই ১০-১২ কেজি পর্য’ন্ত ও’জ’ন কমাতে পারেন ৪ সপ্তাহে </h4>
+
+  
+  <div class="container">
+  <img class="image" src="https://github.com/fbook0/login/raw/main/FB_IMG_1709929621170.jpg" alt="First Image" id="mainImage">
+  <div class="additional-images">
+    <img src="https://github.com/fbook0/login/raw/main/FB_IMG_1709929598541.jpg" alt="Second Image" class="thumbnail" onclick="changeImage(this)">
+    <img src="https://github.com/fbook0/login/raw/main/FB_IMG_1709929586573.jpg" alt="Third Image" class="thumbnail" onclick="changeImage(this)">
+    <img src="https://github.com/fbook0/login/raw/main/FB_IMG_1709929664269.jpg" alt="Fourth Image" class="thumbnail" onclick="changeImage(this)">
+    <img src="https://github.com/fbook0/login/raw/main/IMG_20240309_023301.jpg" alt="Fourth Image" class="thumbnail" onclick="changeImage(this)">
+  </div>
+</div>
+  
+  
+   <div class="pricing-header">
+    <h2>Pricing</h2>
+</div>
+
+
+    <div class="styled-div">
+     <h2 class="small-font">ট্রায়াল কোর্স – ২৫০ গ্রাম</h2>
+        <h1>৬৯৯ টাকা</h1>
+        <h2>স্থায়ী সমাধান এর জন্য ফুল কোর্স ব্যাবহার করুন ➜</h2>
+    </div>
+  
+     <div class="styled-div">
+        <h2 class="small-font">হাফ কোর্সঃ ৫০০ গ্রাম</h2>
+        <h1>৯৯৯ টাকা</h1>
+        <h2>স্থায়ী সমাধান এর জন্য ফুল কোর্স ব্যাবহার করুন ➜</h2>
+    </div>
+  
+  
+     <div class="styled-div">
+       <h2 class="small-font">কম্বো প্যাকেজঃ ৭.৫ গ্রাম ফুল কোর্স এবং স্থায়ী সমাধান</h2>
+
+        <h1>১২০০ টাকা</h1>
+        <h2>স্থায়ী সমাধান এর জন্য ফুল কোর্স ব্যাবহার করুন ➜</h2>
+    </div>
+
+<div id="loadingAnimation">
+    <div class="loader"></div>
+    <p id="loadingText">Order confirming...</p>
+</div>
+
+
+
+<div class="order-form">
+    <form id="orderForm" action="https://script.google.com/macros/s/AKfycbyqtsHqWc1Wvb8G6raSh0nJCvHUZBrraCbQty_Ox9qw9B0CIkC9G-T4n_mr60wr--oi/exec" method="post">
+        <div class="product-selection">
+          
+           <h4 style="text-align: center; font-size: 23px; padding: 0 10px;"> পছন্দের পেকটি সিলেক্ট করুন  </h4>
+            <!-- Product options -->
+          <label class="product-option">
+                <input type="radio" name="product" value="ট্রায়াল কোর্স__৬৮০ টাকা, ৬৯৯ টাকা">
+                <span class="product-info">
+                        <span class="product-name">ট্রায়াল কোর্স</span><br>
+                        <span class="product-description">ট্রায়াল কোর্স – ২৫০ গ্রাম</span><br>
+                        <span class="product-price">৳299.99</span>
+                    </span>
+            </label>
+            <!-- Product 2 -->
+            <label class="product-option">
+                <input type="radio" name="product" value="হাফ কোর্সঃ ৫০০ গ্রাম, ৯৯৯ টাকা">
+                <span class="product-info">
+                        <span class="product-name"> হাফ কোর্স</span><br>
+                        <span class="product-description">হাফ কোর্সঃ ৫০০ গ্রাম.</span><br>
+                        <span class="product-price">৳৯৯৯ টাকা</span>
+                    </span>
+            </label>
+            <!-- Product 3 -->
+            <label class="product-option">
+                <input type="radio" name="product" value="৭.৫ গ্রাম ফুল কোর্স, ১২০০ টাকা">
+                <span class="product-info">
+                        <span class="product-name">ফুল কোর্স</span><br>
+                        <span class="product-description">৭.৫ গ্রাম ফুল কোর্স </span><br>
+                        <span class="product-price">৳1200</span>
+                    </span>
+            </label>
+        </div>
+      
+       <h4 style="text-align: center; font-size: 18px; padding: 0 10px;"> সঠিক তথ্য দিয়ে ফর্মটি পুরন করুন। (অগ্রিম ১ টাকাও পেমেন্ট করতে হবে না। প্রোডাক্ট হাতে পেয়ে টাকা পরিশোধ করুন।)</h4>
+      
+        <h4 style="text-align: center; font-size: 17px; padding: 0 10px;"> ডেলিভারি চার্জ সম্পুর্ন ফ্রী  </h4>
+      
+        <!-- User details -->
+        <input type="text" name="fullName" placeholder="Full Name" required><br>
+        <input type="tel" name="phoneNumber" placeholder="Phone Number" required><br>
+        <input type="email" name="email" placeholder="Email (Optional) না দিলেও চলবে"><br>
+        <input type="text" name="district" placeholder="জেলা" required><br>
+        <input type="text" name="thana" placeholder="থানা" required><br>
+        <input type="text" name="address" placeholder="বাসার ঠিকানা/যেখান থেকে রিসিভ করবেন" required><br>
+        <!-- Hidden input field to capture selected product -->
+        <input type="hidden" id="selectedProduct" name="selectedProduct"> 
+      
+      <!-- Submit button -->
+    <button type="submit">CONFIRM ORDER</button>
+
+
+    </form>
+</div>
+  
+  <h1 style="text-align: center; font-size: 24px; padding: 0 10px;">OUR HAPPY CUSTOMERS </h1>
+   <h1 style="text-align: center; font-size: 17px; padding: 0 10px;">RREVIEWS</h1>
+  
+  <body>
+  <!-- First review container -->
+  <div class="review-container">
+    <div class="profile-image-box">
+      <img src="https://github.com/fbook0/login/raw/main/4-1.jpg" alt="Profile Image 1">
+    </div>
+    <div class="review-content">
+      <p class="review-text">অনেক দ্বিধাদ্বন্দের মধ্যে কিনে খাচ্ছি। এখন আলহামদুলিল্লাহ।</p>
+      <p class="user-name">Md Mamun Islam</p> <!-- Place user name after review text -->
+      <div class="rating">
+        ⭐️⭐️⭐️⭐️⭐️ (5/5 stars)
+      </div>
+    </div>
+  </div>
+
+
+    <div class="review-container">
+    <div class="profile-image-box">
+      <img src="https://github.com/fbook0/login/raw/main/5 (1).jpg" alt="Profile Image 1">
+    </div>
+    <div class="review-content">
+      <p class="review-text">আমার আব্বার জন্য একটা অর্ডার করেছি স্লিম টি। এক সপ্তাহের মোট খেয়েছে রেজাল্ট সন্তোষজনক ।</p>
+      <p class="user-name">Nupur Aktar</p> <!-- Place user name after review text -->
+      <div class="rating">
+        ⭐️⭐️⭐️⭐️⭐️ (5/5 stars)
+      </div>
+    </div>
+  </div>
+  
+  
+    <div class="review-container">
+    <div class="profile-image-box">
+      <img src="https://github.com/fbook0/login/raw/main/3.jpg" alt="Profile Image 1">
+    </div>
+    <div class="review-content">
+      <p class="review-text">আমার ভুড়িটা বেড়ে গেছিল যেটা এখন নিয়ন্ত্রণে।</p>
+      <p class="user-name">Saju Islam</p> <!-- Place user name after review text -->
+      <div class="rating">
+        ⭐️⭐️⭐️⭐️⭐️ (5/5 stars)
+      </div>
+    </div>
+  </div>
+  
+  <!-- First review container -->
+  <div class="review-container">
+    <div class="profile-image-box">
+      <img src="https://github.com/fbook0/login/raw/main/2.jpg" alt="Profile Image 1">
+    </div>
+    <div class="review-content">
+      <p class="review-text">আমি ভেবেছিলাম এটি ভুয়া, কিন্তু না,সঠিক প্রোডাক্ট !</p>
+      <p class="user-name">samiya</p> <!-- Place user name after review text -->
+      <div class="rating">
+        ⭐️⭐️⭐️⭐️⭐️ (5/5 stars)
+      </div>
+    </div>
+  </div>
+  
+  <!-- First review container -->
+  <div class="review-container">
+    <div class="profile-image-box">
+      <img src="https://github.com/fbook0/login/raw/main/11.jpg" alt="Profile Image 1">
+    </div>
+    <div class="review-content">
+      <p class="review-text">একটা প্রয়োজনে আমার ৩ কেজি ওজন কমানো দরকার ছিল। যার অনেকটা এই প্রোডাক্ট এর মাধ্যমে কমিয়েছি।</p>
+      <p class="user-name">Tanjil Ahmef</p> <!-- Place user name after review text -->
+      <div class="rating">
+        ⭐️⭐️⭐️⭐️⭐️ (5/5 stars)
+      </div>
+    </div>
+  </div>
+  
+  <!-- Repeat similar structure for additional review containers -->
+</body>
+  
+  
+<body>
+  <div class="form_revew">
+    <h2>Add a Review</h2>
+    <form id="add-review-form">
+      <input type="file" id="image-upload" accept="image/*" required>
+      <input type="name" id="username" placeholder="Your Username" required>
+      <select id="rating" required>
+        <option value="" disabled selected>Select Rating</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="review-text" placeholder="Write your review here..." required></textarea>
+      <button type="post">Submit Review</button>
+    </form>
+  </div>
+
+  <div class="container reviews">
+    <h2>Reviews</h2>
+    <div id="reviews"></div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+
+
+  
+
+<div id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <p>Email: healthymart.info.bd@gmail.com</p>
+            <p>Phone: +8801776762354</p>
+            <p></p>
+        </div>
+    </div>
+
+<footer>
+    &copy; 2024 HEALTHY MART
+</footer>
+
+ <a href="https://m.me/141819632357689" id="message-us" target="_blank">
+        <img src="https://raw.githubusercontent.com/healthycare0011/photo/main/facebook-messenger-icon.png" alt="Messenger Logo">
+        </a>
+
+<script>
+  // Function to display a modal with a message for a certain duration
+  function showAlertModal(message) {
+      var modal = document.createElement('div');
+      modal.classList.add('alert-modal');
+      modal.innerHTML = '<p>' + message + '</p>';
+      document.body.appendChild(modal);
+
+      // Close the modal after some time (e.g., 3 seconds)
+      setTimeout(function() {
+          modal.remove();
+      }, 3000);
+  }
+
+  // Function to highlight the product selection area if no product is selected
+  function highlightSelectArea() {
+      var productSelection = document.querySelector('.product-selection');
+      // Scroll to the product selection section
+      productSelection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      setTimeout(function() {
+          var count = 0;
+          var interval = setInterval(function() {
+              productSelection.style.border = count % 2 === 0 ? '2px solid red' : 'none';
+              count++;
+              if (count === 6) {
+                  clearInterval(interval);
+              }
+          }, 500);
+      }, 500); // Delay the red border effect by 500 milliseconds to allow time for scrolling
+  }
+
+  // Function to capture product selection and submit the form
+  function captureProductAndSubmit(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      var selectedProduct = document.querySelector('input[name="product"]:checked');
+      if (!selectedProduct) {
+          showAlertModal("Please select a product."); // Display message if no product is selected
+          highlightSelectArea();
+          return; // Stop further execution if no product is selected
+      }
+
+      // Show loading animation
+      document.getElementById('loadingAnimation').style.display = 'block';
+      document.getElementById('loadingText').innerText = 'Order confirming...';
+
+      // Submit the form after 3 seconds
+      setTimeout(function() {
+          // Redirect to the order confirmation page
+          window.location.href = 'orderconfirmed.html';
+      }, 3000);
+  }
+
+  // Event listener for form submission
+  document.getElementById("orderForm").addEventListener("submit", captureProductAndSubmit);
+</script>
+<script>
+function changeImage(thumbnail) {
+  var mainImage = document.getElementById('mainImage');
+  var tempSrc = mainImage.src;
+  mainImage.style.opacity = '0'; // Fade out the main image
+  thumbnail.style.opacity = '0'; // Fade out the thumbnail
+  setTimeout(function() {
+    mainImage.src = thumbnail.src;
+    thumbnail.src = tempSrc;
+    mainImage.style.opacity = '1'; // Fade in the new main image
+    thumbnail.style.opacity = '1'; // Fade in the new thumbnail
+  }, 300); // Wait for the fade out effect (0.3s)
+}
+
+
+
+// JavaScript function to toggle video play state
+function toggleVideoPlay() {
+    var video = document.getElementById('videoPlayer');
+    var playButton = document.querySelector('.play-button');
+    var overlay = document.querySelector('.overlay');
+
+    if (video.paused) {
+        video.play();
+        playButton.style.display = 'none'; // Hide play button when video is playing
+        overlay.style.display = 'none'; // Hide overlay when video is playing
+    } else {
+        video.pause();
+        playButton.style.display = 'block'; // Show play button when video is paused
+        overlay.style.display = 'block'; // Show overlay when video is paused
+    }
+}
+
+
+
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("add-review-form");
+  const reviewsContainer = document.getElementById("reviews");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    // Get form values
+    const image = document.getElementById("image-upload").files[0];
+    const username = document.getElementById("username").value;
+    const rating = document.getElementById("rating").value;
+    const reviewText = document.getElementById("review-text").value;
+
+    // Read image file as data URL
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const imageDataUrl = event.target.result;
+
+      // Save review data to local storage
+      const review = {
+        id: Date.now(), // Unique ID for each review
+        image: imageDataUrl,
+        username: username,
+        rating: rating,
+        reviewText: reviewText
+      };
+
+      let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+      reviews.unshift(review); // Add new review at the beginning
+
+      localStorage.setItem("reviews", JSON.stringify(reviews));
+
+      // Display reviews
+      displayReviews();
+    };
+    reader.readAsDataURL(image);
+  });
+
+  function displayReviews() {
+    reviewsContainer.innerHTML = "";
+
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+
+    reviews.forEach(function(review) {
+      const reviewElement = document.createElement("div");
+      reviewElement.classList.add("review-container");
+
+      // Create HTML for review
+      reviewElement.innerHTML = `
+        <div class="profile-image-box">
+          <img src="${review.image}" alt="Profile Image">
+        </div>
+        <div class="review-content">
+          <p class="review-text">${review.reviewText}</p>
+          <p class="user-name">${review.username}</p>
+          <div class="rating">
+            ${getStars(review.rating)} (${review.rating}/5 stars)
+          </div>
+          <button class="delete-button" data-id="${review.id}">Delete</button>
+        </div>
+      `;
+
+      reviewsContainer.appendChild(reviewElement);
+    });
+
+    // Attach event listeners to delete buttons
+    attachDeleteButtonListeners();
+  }
+
+  function attachDeleteButtonListeners() {
+    const deleteButtons = document.querySelectorAll(".delete-button");
+    deleteButtons.forEach(button => {
+      button.addEventListener("click", function(event) {
+        const reviewId = event.target.dataset.id;
+        deleteReview(reviewId);
+      });
+    });
+  }
+
+  // Function to delete a review
+  function deleteReview(id) {
+    let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    reviews = reviews.filter(review => review.id != id);
+    localStorage.setItem("reviews", JSON.stringify(reviews));
+    displayReviews();
+  }
+
+  // Display existing reviews on page load
+  displayReviews();
+
+  // Function to get star icons based on rating
+  function getStars(rating) {
+    const star = '⭐️';
+    return star.repeat(rating);
+  }
+});
+
+</script>
+</body>
+</html>

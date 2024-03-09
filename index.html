@@ -1041,7 +1041,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
+<script>
+        // Get the review text input element
+        var reviewText = document.getElementById("review-text");
 
+        // Add event listener for input
+        reviewText.addEventListener("input", function () {
+            if (reviewText.value.length > 40) {
+                reviewText.value = reviewText.value.substring(0, 40); // Truncate excess characters
+            }
+        });
+    </script>
 
 </body>
 </html>

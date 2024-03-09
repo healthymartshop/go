@@ -342,6 +342,55 @@
 
 
 <style>
+  .review-container {
+    display: flex;
+    border: 1px solid #ccc;
+    background-color: #99CCFF;
+    border-radius: 8px;
+    padding: 20px;
+    align-items: center; /* Align items vertically */
+    margin-bottom: 5px; /* Reduced margin between review containers */
+  }
+
+  .profile-image-box {
+    width: 70px;
+    height: 70px;
+    border: 1px solid black;
+    overflow: hidden;
+    margin-right: 20px;
+  }
+
+  .profile-image-box img {
+    width: 70px;
+    height: 70px;
+    
+  }
+
+  .review-content {
+    flex-grow: 1;
+    max-width: calc(100% - 120px); /* Adjust maximum width to leave space for image */
+  }
+
+  .user-name {
+    font-weight: bold;
+    margin-top: 0;
+  }
+
+  .review-text {
+    margin-top: 5px; /* Adjust margin between review text and user name */
+  }
+
+  .rating {
+    margin-top: 10px;
+  }
+
+
+
+</style>
+
+    
+
+<style>
 
 .container {
     width: 300px;

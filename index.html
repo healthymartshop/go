@@ -342,50 +342,46 @@
 
 
 <style>
-  .review-container {
+
+.review-container {
     display: flex;
     border: 1px solid #ccc;
-    background-color: #99CCFF;
-    border-radius: 0px;
+    background-color: #CCFFFF;
+    border-radius: 8px;
     padding: 20px;
-    align-items: center; /* Align items vertically */
-    margin-bottom: 3px; /* Reduced margin between review containers */
+    margin-bottom: 5px;
   }
 
-  .profile-image-box {
-    width: 70px;
-    height: 70px;
-    border: 1px solid black;
+.profile-image-box {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
     overflow: hidden;
     margin-right: 20px;
   }
 
-  .profile-image-box img {
-    width: 70px;
-    height: 70px;
-    
+.profile-image-box img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
   }
 
-  .review-content {
+.review-content {
     flex-grow: 1;
-    max-width: calc(100% - 120px); /* Adjust maximum width to leave space for image */
   }
 
-  .user-name {
-    font-weight: bold;
+.review-text {
     margin-top: 0;
   }
 
-  .review-text {
-      font-size: 16.5px;
-    margin-top: 5px; /* Adjust margin between review text and user name */
+.user-name {
+    font-weight: bold;
+    margin-top: 5px;
   }
 
-  .rating {
-      font-size:15px;
-    margin-top: 10px;
+.rating {
+    margin-top: 5px;
   }
-
 
 
 </style>
